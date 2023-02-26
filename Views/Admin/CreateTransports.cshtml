@@ -1,0 +1,21 @@
+﻿@model TransportCompany.Models.Transport;
+@{
+    Layout = "_LayoutAuthorize";
+    //List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+}
+
+<h4>Добавление автомобиля</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedTransports">
+        <label asp-for="Name">Модель</label>
+        <input asp-for="Name" type="text" /> <br />
+        <label asp-for="AutoNumber">Номер автомобиля</label>
+        <input asp-for="AutoNumber" type="text" /> <br />
+        <label asp-for="NumberOfSeats">Количество посадочных мест</label>
+        <input asp-for="NumberOfSeats" type="text" /> <br />
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

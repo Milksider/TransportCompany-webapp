@@ -1,0 +1,38 @@
+﻿@model TransportCompany.Models.Driver;
+
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<Driver> drivers = ViewData["Drivers"] != null ? (List<Driver>)ViewData["Drivers"] : null;
+}
+
+<h4>Список водителей</h4>
+
+<hr />
+
+<div>
+    <a asp-action="CreateDrivers">Добавить водителя</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in drivers)
+            {
+                <tr>
+                    <td>@item.Surname</td>
+                    <td>@item.Name</td>
+                    <td>@item.Fathername</td>
+                    <td><a asp-action="DeleteDrivers" asp-route-id="@item.Id">Удалить</a></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

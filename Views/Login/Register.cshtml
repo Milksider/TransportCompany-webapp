@@ -1,0 +1,22 @@
+﻿@model TransportCompany.Models.User;
+
+<h4 class="text-center display-3" style="padding-top: 50px;">Регистрация</h4>
+
+<hr />
+
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; top: 50%;">
+    <form asp-action="Register" method="post">
+        <label asp-for="Surname">Фамилия</label> <br />
+        <input asp-for="Surname" type="text" /> <br />
+        <label asp-for="Name">Имя</label> <br />
+        <input asp-for="Name" type="text" /> <br />
+        <label asp-for="Fathername">Отчество</label> <br />
+        <input asp-for="Fathername" type="text" /> <br />
+        <label asp-for="Email">Email</label> <br />
+        <input asp-for="Email" type="text" /> <br />
+        <label asp-for="Password">Пароль</label> <br />
+        <input asp-for="Password" type="password" /> <br />
+        <input type="submit" class="btn-primary" value="Выбрать" />
+    </form>
+    <a asp-controller="Home" asp-action="Index">Вернуться на главную</a>
+</div>

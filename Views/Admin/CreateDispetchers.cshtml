@@ -1,0 +1,25 @@
+﻿@model TransportCompany.Models.Dispetcher;
+@{
+    Layout = "_LayoutAuthorize";
+    //List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+}
+
+<h4>Добавление диспетчера</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedDispetchers">
+        <label asp-for="Surname">Фамилия диспетчера</label>
+        <input asp-for="Surname" type="text" /> <br />
+        <label asp-for="Name">Имя диспетчера</label>
+        <input asp-for="Name" type="text" /> <br />
+        <label asp-for="Fathername">Отчество диспетчера</label>
+        <input asp-for="Fathername" type="text" /> <br />
+        <label asp-for="Email">Email диспетчера</label>
+        <input asp-for="Email" type="text" /> <br />
+        <label asp-for="Password">Пароль диспетчера</label>
+        <input asp-for="Password" type="text" /> <br />
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

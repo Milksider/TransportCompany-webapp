@@ -1,0 +1,65 @@
+﻿@model TransportCompany.Models.Trip;
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<Driver> drivers = ViewData["Drivers"] != null ? (List<Driver>)ViewData["Drivers"] : null;
+    List<Conductor> conductors = ViewData["Conductors"] != null ? (List<Conductor>)ViewData["Conductors"] : null;
+    List<Transport> transports = ViewData["Transport"] != null ? (List<Transport>)ViewData["Transport"] : null;
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+    List<TransportRoute> transportRoutes = ViewData["Routes"] != null ? (List<TransportRoute>)ViewData["Routes"] : null;
+}
+
+<h4>Добавление рейса</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedTrip">
+        <label for="start">Выберите остановку начала</label>
+        <select asp-for="RouteId">
+            @foreach(var item in transportRoutes)
+            {
+                    <option value ="@item.Id">
+                        @busStops.Where(a=>a.Id==item.StartBusStopId).Select(a=>a.Name).FirstOrDefault() - @busStops.Where(a=>a.Id==item.EndBusStopId).Select(a=>a.Name).FirstOrDefault()
+                    </option>
+            }
+        </select>
+
+        <label>Выберите время</label>
+        <input asp-for="TripTime" type="time"/>
+        <label>Выберите транспорт</label>
+        <select asp-for="TransportId">
+            @foreach (var item in transports)
+            {
+                <option value="@item.Id">
+                    @transports.Where(a=>a.Id==item.Id).Select(a=>a.Name).FirstOrDefault()
+                    @transports.Where(a=>a.Id==item.Id).Select(a=>a.AutoNumber).FirstOrDefault()
+                </option>
+            }
+        </select>
+        <label>Выберите водителя</label>
+        <select asp-for="DriverId">
+            @foreach (var item in drivers)
+            {
+                <option value="@item.Id">
+                    @drivers.Where(a=>a.Id==item.Id).Select(a=>a.Surname).FirstOrDefault()
+                    @drivers.Where(a=>a.Id==item.Id).Select(a=>a.Name).FirstOrDefault()
+                    @drivers.Where(a=>a.Id==item.Id).Select(a=>a.Fathername).FirstOrDefault()
+                </option>
+            }
+        </select>
+        <label>Выберите кондуктора</label>
+                <select asp-for="ConductorId">
+            @foreach (var item in conductors)
+            {
+                    <option value="@item.Id">
+                    @conductors.Where(a=>a.Id==item.Id).Select(a=>a.Surname).FirstOrDefault()
+                    @conductors.Where(a=>a.Id==item.Id).Select(a=>a.Name).FirstOrDefault()
+                    @conductors.Where(a=>a.Id==item.Id).Select(a=>a.Fathername).FirstOrDefault()
+                    </option>
+            }
+        </select>
+
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "_LayoutAuthorize";
+
+    List<User> users = ViewData["User"] != null ? (List<User>)ViewData["User"] : null;
+}
+<style>
+    .list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .list a {
+            width: 300px;
+            background-color: azure;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+</style>
+
+<h4 class="text-center display-3" style="padding-top: 50px;">Личный кабинет</h4>
+
+<hr />
+
+<div class="text-center" style="font-size: 30px;">
+    <p>Добро пожаловать, @users.Select(a=>a.Surname).FirstOrDefault() @users.Select(a=>a.Name).FirstOrDefault() @users.Select(a=>a.Fathername).FirstOrDefault()</p>
+    <p>Здесь вы можете</p>
+</div>
+
+<div class="list">
+    <a asp-action="ChooseRoute">Купить билет</a>
+    <a asp-action="ListTickets">Список купленных билетов</a>
+    <a asp-action="ListOldTickets">История поездок</a>
+</div>
+
+

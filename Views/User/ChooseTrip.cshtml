@@ -1,0 +1,72 @@
+﻿@model TransportCompany.Models.Trip;
+
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<Trip> trips = ViewData["Trips"] != null ? (List<Trip>)ViewData["Trips"] : null;
+    List<Driver> drivers = ViewData["Drivers"] != null ? (List<Driver>)ViewData["Drivers"] : null;
+    List<Conductor> conductors = ViewData["Conductors"] != null ? (List<Conductor>)ViewData["Conductors"] : null;
+    List<Transport> transports = ViewData["Transport"] != null ? (List<Transport>)ViewData["Transport"] : null;
+    List<BusStop> busStopsStart = ViewData["BusStopsStart"] != null ? (List<BusStop>)ViewData["BusStopsStart"] : null;
+    List<BusStop> busStopsEnd = ViewData["BusStopsEnd"] != null ? (List<BusStop>)ViewData["BusStopsEnd"] : null;
+    String date = ViewData["date"].ToString();
+    //количество доступных мест
+    List<Ticket> tickets = ViewData["TransportSeats"] != null ? (List<Ticket>)ViewData["TransportSeats"] : null;
+}
+
+<h4 class="text-center display-3" style="padding-top: 50px;">Покупка билета</h4>
+
+<hr />
+
+<div>
+    <p>Выбранный маршрут:</p>
+    <p>C остановки @busStopsStart.Select(a=>a.Name).FirstOrDefault() на остановку @busStopsEnd.Select(a=>a.Name).FirstOrDefault() </p>
+    <p>Дата поездки: @Convert.ToDateTime(date).ToString("dd'.'MM'.'yy")</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Время отправления</th>
+                <th>Водитель</th>
+                <th>Кондуктор</th>
+                <th>Транспортное средство</th>
+                <th>Количество доступных мест</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Convert.ToDateTime(date).Day == DateTime.Now.Day && Convert.ToDateTime(date).Month == DateTime.Now.Month)
+            {
+                @foreach (var item in trips.Where(a => a.TripTime > DateTime.Now))
+                {
+
+                    @if (tickets.Where(a => a.TripId == item.Id && a.DateOfTrip == Convert.ToDateTime(date)).Count() == 0)
+                    {
+                        <tr>
+                            <td>@item.TripTime.ToString("HH':'mm")</td>
+                            <td>@drivers.Where(a=>a.Id==item.DriverId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@conductors.Where(a=>a.Id==item.ConductorId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.Name).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()/@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()</td>
+                            <td><a asp-action="CreateTicket" asp-route-id="@item.Id">Купить</a></td>
+                        </tr>
+                    }
+                    int countSeat = transports.Where(a => a.Id == item.TransportId).Select(a => a.NumberOfSeats).FirstOrDefault() - tickets.Where(a => a.TripId == item.Id && a.DateOfTrip == Convert.ToDateTime(date)).Count();
+                    @if (countSeat != @transports.Where(a => a.Id == item.TransportId).Select(a => a.NumberOfSeats).FirstOrDefault())
+                    {
+                        <tr>
+                            <td>@item.TripTime.ToString("HH':'mm")</td>
+                            <td>@drivers.Where(a=>a.Id==item.DriverId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@conductors.Where(a=>a.Id==item.ConductorId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.Name).FirstOrDefault()</td>
+                            <td>@countSeat/@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()</td>
+                            <td><a asp-action="CreateTicket" asp-route-id="@item.Id">Купить</a></td>
+                        </tr>
+                    }
+                }
+            }
+            
+            
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

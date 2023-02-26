@@ -1,0 +1,34 @@
+﻿@model TransportCompany.Models.BusStop;
+
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+}
+
+<h4>Список остановок</h4>
+
+<hr />
+
+<div>
+    <a asp-action="CreateBusStop">Добавить остановку</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Остановка</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in busStops)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><a asp-action="DeleteBusStop" asp-route-id="@item.Id">Удалить</a></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

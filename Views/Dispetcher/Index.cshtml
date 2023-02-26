@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_LayoutAuthorize";
+
+    List<Dispetcher> dispetchers = ViewData["Dispetcher"] != null ? (List<Dispetcher>)ViewData["Dispetcher"] : null;
+}
+
+<style>
+    .list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .list a {
+            width: 300px;
+            background-color: azure;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+</style>
+
+
+<h4>Личный кабинет диспетчера</h4>
+
+<hr />
+
+<p>Добро пожаловать, @dispetchers.Select(a=>a.Surname).FirstOrDefault() @dispetchers.Select(a=>a.Name).FirstOrDefault() @dispetchers.Select(a=>a.Fathername).FirstOrDefault()</p>
+
+<div class="list">
+    <a asp-action="ListTickets">Список билетов ожидающих подтверждения</a>
+</div>
+

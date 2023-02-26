@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_LayoutAuthorize";
+
+    List<Trip> trips = ViewData["Trips"] != null ? (List<Trip>)ViewData["Trips"] : null;
+    List<Driver> drivers = ViewData["Drivers"] != null ? (List<Driver>)ViewData["Drivers"] : null;
+    List<Conductor> conductors = ViewData["Conductors"] != null ? (List<Conductor>)ViewData["Conductors"] : null;
+    List<Transport> transports = ViewData["Transport"] != null ? (List<Transport>)ViewData["Transport"] : null;
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+    List<TransportRoute> transportRoutes = ViewData["TransportRoute"] != null ? (List<TransportRoute>)ViewData["TransportRoute"] : null;
+    //количество доступных мест
+    List<Ticket> tickets = ViewData["Tickets"] != null ? (List<Ticket>)ViewData["Tickets"] : null;
+}
+
+<h4>Список купленных билетов</h4>
+
+<hr />
+<a asp-action="Index">Вернуться на главную</a>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Дата отправления</th>
+                <th>Время отправления</th>
+                <th>Маршрут</th>
+                <th>Водитель</th>
+                <th>Кондуктор</th>
+                <th>Транспортное средство</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in tickets)
+            {
+                <tr>
+                    @{
+                        int tripId = item.TripId;
+                        int routeId = trips.Where(a => a.Id == item.TripId).Select(a => a.RouteId).FirstOrDefault();
+                        int busStart = transportRoutes.Where(a => a.Id == routeId).Select(a => a.StartBusStopId).FirstOrDefault();
+                        int busEnd = transportRoutes.Where(a => a.Id == routeId).Select(a => a.EndBusStopId).FirstOrDefault();
+                    }
+                    <td>@item.DateOfTrip.ToString("dd'.'MM'.'yy")</td>
+                    <td>@trips.Where(a=>a.Id==item.TripId).Select(a=>a.TripTime).FirstOrDefault().ToString("HH':'mm")</td>
+                    <td>@busStops.Where(a=>a.Id==busStart).Select(a=>a.Name).FirstOrDefault()-@busStops.Where(a=>a.Id==busEnd).Select(a=>a.Name).FirstOrDefault()</td>
+                    <td>@drivers.Where(a=>a.Id==trips.Where(a=>a.Id==tripId).Select(a=>a.DriverId).FirstOrDefault()).Select(a=>a.Surname).FirstOrDefault()</td>
+                    <td>@conductors.Where(a=>a.Id==trips.Where(a=>a.Id==tripId).Select(a=>a.ConductorId).FirstOrDefault()).Select(a=>a.Surname).FirstOrDefault()</td>
+                    <td>@transports.Where(a=>a.Id==trips.Where(a=>a.Id==tripId).Select(a=>a.TransportId).FirstOrDefault()).Select(a=>a.Name).FirstOrDefault()</td>
+                    <td><a asp-action="ConfirmTicket" asp-route-id="@item.Id">Подтвердить билет</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

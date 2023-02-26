@@ -1,0 +1,37 @@
+﻿@model TransportCompany.Models.TransportRoute;
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+    List<TransportRoute> transportRoutes = ViewData["Routes"] != null ? (List<TransportRoute>)ViewData["Routes"] : null;
+}
+
+<h4>Добавление маршрута</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedRoute">
+        <label for="start">Выберите остановку начала</label>
+        <select asp-for="StartBusStopId">
+            @foreach(var item in busStops)
+            {
+                    <option value ="@item.Id">
+                        @item.Name
+                    </option>
+            }
+        </select>
+
+        <label for="start">Выберите остановку конца</label>
+        <select asp-for="EndBusStopId">
+            @foreach (var item in busStops)
+            { 
+                        <option value ="@item.Id">
+                    @item.Name
+                        </option>
+            }
+        </select>
+        
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

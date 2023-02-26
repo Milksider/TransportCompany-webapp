@@ -1,0 +1,23 @@
+﻿@model TransportCompany.Models.Trip;
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<Trip> trips = ViewData["Trips"] != null ? (List<Trip>)ViewData["Trips"] : null;
+    List<Transport> transports = ViewData["Transport"] != null ? (List<Transport>)ViewData["Transport"] : null;
+}
+
+<p> Выберите новый автомобиль </p>
+<div>
+    <form asp-action="SaveTransport">
+        <label asp-for="TransportId">Выберите новый автомобиль</label>
+        <select asp-for="TransportId">
+            @foreach (var item in transports)
+            {
+                    <option value="@item.Id">
+                    @item.Name @item.AutoNumber
+                    </option>
+            }
+        </select>
+        <input type="submit" class="btn-primary" value="Сохранить" />
+    </form>
+</div>

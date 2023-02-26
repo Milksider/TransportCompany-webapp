@@ -1,0 +1,18 @@
+﻿@model TransportCompany.Models.BusStop;
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+}
+
+<h4>Добавление остановки</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedBusStop">
+        <label asp-for="Name">Название остановки</label>
+        <input asp-for="Name" type="text"/>
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

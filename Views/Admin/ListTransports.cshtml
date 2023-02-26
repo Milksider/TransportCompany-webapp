@@ -1,0 +1,38 @@
+﻿@model TransportCompany.Models.Transport;
+
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<Transport> transports = ViewData["Transport"] != null ? (List<Transport>)ViewData["Transport"] : null;
+}
+
+<h4>Список автомобилей</h4>
+
+<hr />
+
+<div>
+    <a asp-action="CreateTransports">Добавить автомобиль</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Модель</th>
+                <th>Номер машины</th>
+                <th>Количество посадочных мест</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in transports)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.AutoNumber</td>
+                    <td>@item.NumberOfSeats</td>
+                    <td><a asp-action="DeleteTransports" asp-route-id="@item.Id">Удалить</a></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

@@ -1,0 +1,36 @@
+﻿@model TransportCompany.Models.TransportRoute;
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+    DateTime ndate = DateTime.Now;
+}
+
+<h4 class="text-center display-3" style="padding-top: 50px;">Поиск рейса</h4>
+<hr />
+<div style="margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <form asp-action="ChooseTrip">
+        <label asp-for="StartBusStopId">Выберите откуда вы хотите поехать</label> <br />
+        <select asp-for="StartBusStopId">
+        @foreach (var item in busStops)
+        {
+                <option value="@item.Id">
+                    @item.Name
+                </option> 
+        }
+        </select> <br />
+        <label asp-for="EndBusStopId">Выберите куда вы хотите поехать</label> <br />
+        <select asp-for="EndBusStopId">
+            @foreach (var item in busStops)
+            {
+                    <option value="@item.Id">
+                    @item.Name
+                    </option>
+            }
+        </select> <br />
+        <label for="date">Выберите дату поездки</label> <br />
+        
+        <input type="date" name="date" min="@ndate.ToString()"/> <br />
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

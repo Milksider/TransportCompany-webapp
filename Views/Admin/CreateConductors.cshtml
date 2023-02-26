@@ -1,0 +1,22 @@
+﻿@model TransportCompany.Models.Conductor;
+@{
+    Layout = "_LayoutAuthorize";
+
+    //List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+}
+
+<h4>Добавление кондуктора</h4>
+
+<hr />
+
+<div>
+    <form asp-action="SaveCreatedConductors">
+        <label asp-for="Surname">Фамилия кондуктора</label>
+        <input asp-for="Surname" type="text" /> <br />
+        <label asp-for="Name">Имя кондуктора</label>
+        <input asp-for="Name" type="text" /> <br />
+        <label asp-for="Fathername">Отчество кондуктора</label>
+        <input asp-for="Fathername" type="text" /> <br />
+        <input type="submit" class="btn-primary" value="Выбрать"/>
+    </form>
+</div>

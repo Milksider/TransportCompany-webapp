@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_LayoutAuthorize";
+}
+<h4>Личный кабинет администратора</h4>
+<hr />
+<style>
+    .list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .list a {
+        width: 170px;
+        background-color: azure;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 18px;
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+<div class="list">
+    <a asp-action="ListTrips">Список рейсов</a> <br />
+    <a asp-action="ListRoutes">Список маршрутов</a> <br />
+    <a asp-action="ListBusStops">Список остановок</a> <br />
+    <a asp-action="ListDrivers">Список водителей</a> <br />
+    <a asp-action="ListConductors">Список кондукторов</a> <br />
+    <a asp-action="ListTransports">Список автомобилей</a><br />
+    <a asp-action="ListDispetchers">Список диспетчеров</a><br />
+</div>

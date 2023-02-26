@@ -1,0 +1,35 @@
+﻿@model TransportCompany.Models.TransportRoute;
+
+@{
+    Layout = "_LayoutAuthorize";
+
+    List<BusStop> busStops = ViewData["BusStops"] != null ? (List<BusStop>)ViewData["BusStops"] : null;
+    List<TransportRoute> transportRoutes = ViewData["Routes"] != null ? (List<TransportRoute>)ViewData["Routes"] : null;
+}
+
+<h4>Список маршрутов</h4>
+
+<hr />
+
+<div>
+    <a asp-action="CreateRoute">Добавить маршрут</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Маршрут</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in transportRoutes)
+            {
+                <tr>
+                    <td>@busStops.Where(a=>a.Id==item.StartBusStopId).Select(a=>a.Name).FirstOrDefault() - @busStops.Where(a=>a.Id==item.EndBusStopId).Select(a=>a.Name).FirstOrDefault()</td>
+                    <td><a asp-action="DeleteRoute" asp-route-id="@item.Id">Удалить</a></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>

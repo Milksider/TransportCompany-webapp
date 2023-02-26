@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-3" style="padding-top: 50px;">Добро пожаловать на сайт автотранспортной компании</h1>
+    <hr />
+</div>
+
+<div>
+    <p class="display-6 text-center font-weight-bold"> Здесь вы можете купить билеты на междугородние рейсы </p>
+    <p class="display-6 text-center">Для покупки билета необходимо 
+        <a asp-controller="Login" asp-action="Login">авторизоваться</a> или 
+        <a asp-controller="Login" asp-action="Register">зарегистрироваться</a>, если вы здесь впервые
+    </p>
+</div>
