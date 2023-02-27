@@ -45,6 +45,7 @@
                     <td>@conductors.Where(a=>a.Id==trips.Where(a=>a.Id==tripId).Select(a=>a.ConductorId).FirstOrDefault()).Select(a=>a.Surname).FirstOrDefault()</td>
                     <td>@transports.Where(a=>a.Id==trips.Where(a=>a.Id==tripId).Select(a=>a.TransportId).FirstOrDefault()).Select(a=>a.Name).FirstOrDefault()</td>
                     <td><a asp-action="ConfirmTicket" asp-route-id="@item.Id">Подтвердить билет</a></td>
+                    <td><a asp-action="DeleteTicket" asp-route-id="@item.Id">Отменить билет</a></td>
                 </tr>
             }
         </tbody>

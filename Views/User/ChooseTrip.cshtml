@@ -64,7 +64,36 @@
                     }
                 }
             }
-            
+            else if ((Convert.ToDateTime(date).Day > DateTime.Now.Day && Convert.ToDateTime(date).Month == DateTime.Now.Month) | (Convert.ToDateTime(date).Month > DateTime.Now.Month))
+            {
+                @foreach (var item in trips)
+                {
+
+                    @if (tickets.Where(a => a.TripId == item.Id && a.DateOfTrip == Convert.ToDateTime(date)).Count() == 0)
+                    {
+                        <tr>
+                            <td>@item.TripTime.ToString("HH':'mm")</td>
+                            <td>@drivers.Where(a=>a.Id==item.DriverId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@conductors.Where(a=>a.Id==item.ConductorId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.Name).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()/@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()</td>
+                            <td><a asp-action="CreateTicket" asp-route-id="@item.Id">Купить</a></td>
+                        </tr>
+                    }
+                    int countSeat = transports.Where(a => a.Id == item.TransportId).Select(a => a.NumberOfSeats).FirstOrDefault() - tickets.Where(a => a.TripId == item.Id && a.DateOfTrip == Convert.ToDateTime(date)).Count();
+                    @if (countSeat != @transports.Where(a => a.Id == item.TransportId).Select(a => a.NumberOfSeats).FirstOrDefault())
+                    {
+                        <tr>
+                            <td>@item.TripTime.ToString("HH':'mm")</td>
+                            <td>@drivers.Where(a=>a.Id==item.DriverId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@conductors.Where(a=>a.Id==item.ConductorId).Select(a=>a.Surname).FirstOrDefault()</td>
+                            <td>@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.Name).FirstOrDefault()</td>
+                            <td>@countSeat/@transports.Where(a=>a.Id==item.TransportId).Select(a=>a.NumberOfSeats).FirstOrDefault()</td>
+                            <td><a asp-action="CreateTicket" asp-route-id="@item.Id">Купить</a></td>
+                        </tr>
+                    }
+                }
+            }
             
         </tbody>
     </table>

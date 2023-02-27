@@ -45,6 +45,16 @@ namespace TransportCompany.Controllers
             return Redirect("~/Dispetcher/ListTickets");
         }
 
-        
+        public async Task<IActionResult> DeleteTicket(int id)
+        {
+            var ticket = await _context.tickets.FindAsync(id);
+            if (ticket != null)
+            {
+                _context.tickets.Remove(ticket);
+            }
+
+            await _context.SaveChangesAsync();
+            return Redirect("~/Dispetcher/ListTickets");
+        }
     }
 }
